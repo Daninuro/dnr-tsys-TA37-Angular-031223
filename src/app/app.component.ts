@@ -9,6 +9,31 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
+
 export class AppComponent {
-  title = 'dnr-tsys-TA37-Angular-031223';
+  screen:string = '';
+  resultScreen:string = '';
+  operation: Array<string> = [];
+
+  
+  number(valor: string): void {
+    this.screen += valor;
+  }
+
+  deleteLastNumber(): void {
+    this.screen = this.screen.slice(0, -1);
+  }
+
+
+  doOperation(operacion: string): void {
+    this.operation.push(this.screen, operacion);
+    this.screen = '';
+  }
+
+  result(): void {
+    this.operation.push(this.screen);
+    const expresion = this.operation.join(' ');
+    this.screen = eval(expresion).toString();
+    this.operation = [];
+  }
 }
